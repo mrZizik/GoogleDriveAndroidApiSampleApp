@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
         val isAuthed = lastSigned != null && !lastSigned.isExpired
 
         _mainScreenState.value = MainScreenState(
-            isAuthed = lastSigned != null && !lastSigned.isExpired
+            isAuthed = isAuthed
         )
 
         if (isAuthed) {
