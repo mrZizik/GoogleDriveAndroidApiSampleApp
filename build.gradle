@@ -1,0 +1,82 @@
+buildscript {
+    ext.versions = [
+            kotlin                 : '1.8.10',
+            archComponents  : '2.5.1',
+            coroutines      : '1.6.4',
+            dagger          : '2.44',
+            hiltWorkManager : '1.0.0',
+            hiltCompose     : '1.0.0',
+            coreKtx         : '1.10.1',
+            lifeCycleKtx    : '2.6.1',
+            activityCompose : '1.7.1',
+            activityKtx     : '1.7.1',
+            fragmentKtx     : '1.7.1',
+            playServices    : '18.2.0',
+            driveApiServices: 'v3-rev136-1.25.0',
+            googleApiClient : '1.26.0',
+            googleHttpClient: '1.40.0',
+            playServicesAuth: '20.5.0',
+            guava           : '27.0.1-android',
+    ]
+
+    ext {
+        appVersionCode = 1
+        appVersionName = '1.0'
+
+        compileVersion = 33
+        minVersion = 24
+        targetVersion = 33
+
+
+        coreCtxDep = "androidx.core:core-ktx:$versions.coreKtx"
+        coroutineDep = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+        coroutineAndroidDep = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+        coroutineTestDep = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
+
+        daggerDep = "com.google.dagger:hilt-android:$versions.dagger"
+        daggerKaptDep = "com.google.dagger:hilt-compiler:$versions.dagger"
+        hiltUiTestDep = "com.google.dagger:hilt-android-testing:$versions.dagger"
+        hiltUiTestKaptDep = "com.google.dagger:hilt-compiler:$versions.dagger"
+        hiltUnitTestDep = "com.google.dagger:hilt-android-testing:$versions.dagger"
+        hiltUnitTestKaptDep = "com.google.dagger:hilt-compiler:$versions.dagger"
+        hiltNavComposeDep = "androidx.hilt:hilt-navigation-compose:$versions.hiltCompose"
+        hiltWorkManagerDep = "androidx.hilt:hilt-work:$versions.hiltWorkManager"
+        hiltWorkManagerKaptDep = "androidx.hilt:hilt-compiler:$versions.hiltWorkManager"
+
+        lifecycleProcessDep = "androidx.lifecycle:lifecycle-process:$versions.archComponents"
+        lifecycleKaptDep = "androidx.lifecycle:lifecycle-compiler:$versions.archComponents"
+        viewmodelKtxDep = "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.archComponents"
+        livedataKtxDep = "androidx.lifecycle:lifecycle-livedata-ktx:$versions.archComponents"
+        runtimeKtxDep = "androidx.lifecycle:lifecycle-runtime-ktx:$versions.archComponents"
+
+        composeUiDep = "androidx.compose.ui:ui:$versions.compose"
+        composeLiveDataDep = "androidx.compose.runtime:runtime-livedata:$versions.compose"
+        composeFoundationDep = "androidx.compose.foundation:foundation:$versions.compose"
+        composeRuntimeDep = "androidx.compose.runtime:runtime:$versions.compose"
+        composeAnimationGraphicsDep = "androidx.compose.animation:animation-graphics:$versions.compose"
+        composeToolingDep = "androidx.compose.ui:ui-tooling:$versions.compose"
+        composeToolingPreviewDep = "androidx.compose.ui:ui-tooling-preview:$versions.compose"
+        composeActivityDep = "androidx.activity:activity-compose:1.6.1"
+        composeViewModelDep = "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
+        composeLifecycleDep = "androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03"
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:${versions.kotlin}"
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.google.gms:google-services:4.3.15'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44'
+    }
+}
+
+plugins {
+    id 'com.android.application' version '8.0.0' apply false
+    id 'com.android.library' version '8.0.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.10' apply false
+    id 'com.google.dagger.hilt.android' version '2.46' apply false
+}
