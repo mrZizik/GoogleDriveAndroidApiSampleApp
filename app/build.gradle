@@ -1,0 +1,110 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'ru.abdulmadzhidov.googledrivesampleapp'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "ru.abdulmadzhidov.googledrivesampleapp"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.4'
+    }
+    packagingOptions {
+        resources.excludes.add("META-INF/**/*")
+        resources.excludes.add("META-INF/*")
+    }
+}
+
+hilt {
+    enableAggregatingTask = true
+}
+
+dependencies {
+    implementation coreCtxDep
+    implementation platform('androidx.compose:compose-bom:2022.10.00')
+    implementation 'androidx.compose.material3:material3'
+
+    implementation coroutineDep
+    implementation coroutineAndroidDep
+    implementation coroutineTestDep
+
+    implementation daggerDep
+    implementation daggerKaptDep
+    implementation hiltUiTestDep
+    implementation hiltUiTestKaptDep
+    implementation hiltUnitTestDep
+    implementation hiltUnitTestKaptDep
+    implementation hiltNavComposeDep
+    implementation hiltWorkManagerDep
+    implementation hiltWorkManagerKaptDep
+
+    implementation lifecycleProcessDep
+    implementation lifecycleKaptDep
+    implementation viewmodelKtxDep
+    implementation livedataKtxDep
+    implementation runtimeKtxDep
+
+    implementation composeUiDep
+    implementation composeLiveDataDep
+    implementation composeFoundationDep
+    implementation composeRuntimeDep
+    implementation composeToolingDep
+    implementation composeToolingPreviewDep
+    implementation composeActivityDep
+    implementation composeViewModelDep
+    implementation composeLifecycleDep
+
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
+
+    implementation "com.google.dagger:hilt-android:2.46"
+    kapt "com.google.dagger:hilt-android-testing:2.46"
+    kapt "com.google.dagger:hilt-compiler:2.46"
+
+    implementation 'com.google.android.gms:play-services-base:18.2.0'
+    implementation ('com.google.apis:google-api-services-drive:v3-rev136-1.25.0')
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
+    implementation ('com.google.api-client:google-api-client-android:1.26.0')
+            {
+                exclude group: 'org.apache.httpcomponents'
+            }
+    implementation 'com.google.http-client:google-http-client-gson:1.40.1'
+
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    kapt lifecycleKaptDep
+    implementation 'com.google.guava:guava:27.0.1-android'
+}
