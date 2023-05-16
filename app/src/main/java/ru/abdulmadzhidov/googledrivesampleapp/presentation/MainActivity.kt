@@ -2,6 +2,7 @@ package ru.abdulmadzhidov.googledrivesampleapp.presentation
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
             if (result.resultCode == Activity.RESULT_OK) {
                 GoogleSignIn.getSignedInAccountFromIntent(result.data)
                     .addOnSuccessListener {
+                        Log.e("TAGAA", "SUCCESS")
                         mainViewModel.getFilesList(this@MainActivity)
                     }
                     .addOnFailureListener {
@@ -74,9 +76,9 @@ class MainActivity : ComponentActivity() {
 
     private fun initGoogleSignin() {
         val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken()
+            .requestIdToken("246186134552-42qdr7qrbvdf0g71kbo3glgq37bf9gd3.apps.googleusercontent.com")
             .requestEmail()
-            .requestScopes(Scope(DriveScopes.DRIVE_FILE))
+            .requestScopes(Scope(DriveScopes.DRIVE_APPDATA))
             .build()
 
         client = GoogleSignIn.getClient(this@MainActivity, signInOptions)

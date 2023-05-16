@@ -1,6 +1,7 @@
 package ru.abdulmadzhidov.googledrivesampleapp.presentation
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -48,7 +49,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
             val credential: GoogleAccountCredential =
                 GoogleAccountCredential.usingOAuth2(
                     context,
-                    Collections.singleton(DriveScopes.DRIVE_FILE)
+                    Collections.singleton(DriveScopes.DRIVE_APPDATA)
                 )
 
             credential.selectedAccount = GoogleSignIn.getLastSignedInAccount(context)?.account
@@ -61,15 +62,20 @@ class MainViewModel @Inject constructor() : ViewModel() {
                 .setApplicationName("Samples")
                 .build()
 
-            val files = googleDriveService.Files().list().execute().files.map {
-                LocalFile(
-                    name = it.name,
-                    id = it.id
-                )
-            }
+            val files = googleDriveService.Files()
+                .list()
+                .setSpaces("appDataFolder")
+                .execute()
+                .files.map {
+                    LocalFile(
+                        name = it.name,
+                        id = it.id
+                    )
+                }
 
             launch(Dispatchers.Main) {
-                _mainScreenState.value = _mainScreenState.value?.copy(isAuthed = true, files = files)
+                _mainScreenState.value =
+                    _mainScreenState.value?.copy(isAuthed = true, files = files)
             }
         }
     }
@@ -79,7 +85,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
             val credential: GoogleAccountCredential =
                 GoogleAccountCredential.usingOAuth2(
                     context,
-                    Collections.singleton(DriveScopes.DRIVE_FILE)
+                    Collections.singleton(DriveScopes.DRIVE_APPDATA)
                 )
 
             credential.selectedAccount = GoogleSignIn.getLastSignedInAccount(context)?.account
@@ -109,7 +115,7 @@ class MainViewModel @Inject constructor() : ViewModel() {
             val credential: GoogleAccountCredential =
                 GoogleAccountCredential.usingOAuth2(
                     context,
-                    Collections.singleton(DriveScopes.DRIVE_FILE)
+                    Collections.singleton(DriveScopes.DRIVE_APPDATA)
                 )
 
             credential.selectedAccount = GoogleSignIn.getLastSignedInAccount(context)?.account
@@ -125,13 +131,15 @@ class MainViewModel @Inject constructor() : ViewModel() {
             val name = "testFile" + Random(100).nextInt()
 
             val metadata: File = File()
-                .setParents(Collections.singletonList("root"))
+                .setParents(Collections.singletonList("appDataFolder"))
                 .setMimeType("text/plain")
                 .setName(name)
 
-            java.io.File(context.cacheDir.absolutePath, name).writeText("some random mnemonic here" + Random(100).nextInt())
+            java.io.File(context.cacheDir.absolutePath, name)
+                .writeText("some random mnemonic here" + Random(100).nextInt())
 
-            val mediaContent = FileContent("text/plain", java.io.File(context.cacheDir.absolutePath + "/" + name))
+            val mediaContent =
+                FileContent("text/plain", java.io.File(context.cacheDir.absolutePath + "/" + name))
 
             val googleFile: File =
                 googleDriveService.files().create(metadata, mediaContent)
