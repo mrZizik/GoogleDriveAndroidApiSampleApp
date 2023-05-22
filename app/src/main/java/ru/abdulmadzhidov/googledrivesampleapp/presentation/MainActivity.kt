@@ -76,7 +76,7 @@ class MainActivity : ComponentActivity() {
 
     private fun initGoogleSignin() {
         val signInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("246186134552-42qdr7qrbvdf0g71kbo3glgq37bf9gd3.apps.googleusercontent.com")
+            .requestIdToken("")
             .requestEmail()
             .requestScopes(Scope(DriveScopes.DRIVE_APPDATA))
             .build()
